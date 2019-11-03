@@ -13,8 +13,19 @@
 * [Docker](https://docs.docker.com/install/)
 * [Docker-compose](https://docs.docker.com/compose/)
 
-## Usage
+## Intial
 Create docker container
+Let it build images.
+```
+docker-compose up -d
+```
+Install dependencies
+```
+docker-compose exec php composer install
+```
+
+## Usage
+Start docker container
 ```
 docker-compose up -d
 ```
