@@ -14,8 +14,7 @@
 * [Docker-compose](https://docs.docker.com/compose/)
 
 ## Intial
-Create docker container
-Let it build images.
+Create docker container and let it build images.
 ```
 docker-compose up -d
 ```
