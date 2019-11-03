@@ -1,0 +1,11 @@
+{# This is how we can re-use HTML #}
+{% extends 'base.html.twig' %}
+
+{# This is how we overwrite #}
+{% block title %}Resurgence{% endblock %}
+
+{% block body %}
+<h1>Hello World</h1>
+
+<body>Your lucky number is: {{ number }}<body>
+{% endblock %}
