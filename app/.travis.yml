@@ -9,8 +9,7 @@ services:
 env:
  - SYMFONY_VERSION="4.3.*" DB=mysql
 
-before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+
   
 install:
   - composer install
