@@ -4,15 +4,15 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Controller that handles the homepage
  */
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage")
      */
     public function index() {
         $stuff = $this->getDoctrine()->getManager(); // actually connect to mysql DB
