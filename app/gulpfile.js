@@ -7,13 +7,12 @@ const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
 const clean = require('postcss-discard-comments');
 const cleanCSS = require('gulp-clean-css');
-const babel = require('gulp-babel');
 const url = require('postcss-url');
 
 gulp.task('build:css', function() {
     return gulp.src('assets/css/*.css')
-        .pipe(plumber())
         .pipe(sourcemaps.init())
+        .pipe(plumber())
         .pipe(concat('main.css'))
         .pipe(postcss([
             autoprefixer(),
@@ -30,11 +29,15 @@ gulp.task('build:css', function() {
 
 gulp.task('build:js', function() {
     return gulp.src([
+        'assets/js/vendor/zepto.js',
+        'assets/js/vendor/zepto.cookie.js',
         'assets/js/*.js'
         ])
-        .pipe(babel({presets: ['@babel/env']}))
+        .pipe(sourcemaps.init())
+        .pipe(plumber())
         .pipe(concat('main.js'))
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/js/'));
 });
 
