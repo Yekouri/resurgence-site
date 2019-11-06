@@ -6,12 +6,14 @@
 * [Symfony 4.3](https://symfony.com/doc/current/index.html#gsc.tab=0)
 * [Twig](https://symfony.com/doc/current/templates.html#twig-templating-language)
 * [Doctrine ORM](https://symfony.com/doc/current/doctrine.html)
-
+* [Zepto JQuery](https://zeptojs.com/)
 
 # Setup
 ## Requirements
 * [Docker](https://docs.docker.com/install/)
 * [Docker-compose](https://docs.docker.com/compose/)
+* [Node Package Manager](https://www.npmjs.com/get-npm)
+* [Gulp](https://gulpjs.com/)
 
 ## Intial
 Create docker container and let it build images.
@@ -32,23 +34,37 @@ Access composer
 ```
 docker-compose exec php composer
 ```
-Access mysql
+Access mysql server
 ```
 docker-compose exec db bash
 ```
+Login using CLI
+```
+$ mysql -u [USER] -p [PASSWORD]
+```
+
+Build css and javascript
+```
+gulp build
+```
 
 # Doctrine 
+**Standing inside the docker container first**
+```
+docker-compose exec php bash
+```
+
 Create a new entity 
 ```
-docker-compose exec php bin/console make:entity <Entity>
+$ bin/console make:entity [Entity]
 ```
 
 Create a new migration version
 ```
-docker-compose exec php bin/console make:migration
+$ php bin/console make:migration
 ```
 
 Apply migration to database
 ```
-docker-compose exec php bin/console doctrine:migrations:migrate
+$ bin/console doctrine:migrations:migrate
 ```
