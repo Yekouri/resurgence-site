@@ -1,0 +1,30 @@
+
+@mixin until($point) {
+	$break-width: 0;
+
+	@if( unitless($point) ) {
+		$break-width: $point * 1px - 1;
+	}
+	@else {
+		$break-width: $point;
+	}
+
+	@media (max-width: $break-width) {
+		@content;
+	}
+}
+
+@mixin from($point) {
+	$break-width: 0;
+
+	@if( unitless($point) ) {
+		$break-width: $point * 1px - 1;
+	}
+	@else {
+		$break-width: $point;
+	}
+
+	@media (min-width: $break-width) {
+		@content;
+	}
+}

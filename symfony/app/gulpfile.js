@@ -1,6 +1,5 @@
 const gulp = require('gulp');
 const plumber = require('gulp-plumber');
-const autoprefixer = require('autoprefixer');
 const concat = require('gulp-concat');
 const postcss = require('gulp-postcss');
 const uglify = require('gulp-uglify');
@@ -8,23 +7,41 @@ const sourcemaps = require('gulp-sourcemaps');
 const clean = require('postcss-discard-comments');
 const cleanCSS = require('gulp-clean-css');
 const url = require('postcss-url');
+const cssnext = require('postcss-cssnext');
+const sass = require('gulp-sass');
+const print = require('gulp-print').default;
+
+gulp.task('my-sass-task', function () {
+    return gulp.src('./assets/scss/*.scss')   // note file ext
+      .pipe(sass().on('error', sass.logError))
+      .pipe(gulp.dest('../js/'));
+  });
+  
 
 gulp.task('build:css', function() {
-    return gulp.src('assets/css/*.css')
-        .pipe(sourcemaps.init())
+    return gulp.src('./assets/scss/*.scss')
         .pipe(plumber())
+        .pipe(sass().on('error', sass.logError))
         .pipe(concat('main.css'))
+        .on('error', function (error) {
+			console.log(error.toString());
+			this.emit('end');
+		})
         .pipe(postcss([
-            autoprefixer(),
             url({
                 url: 'inline',
                 maxSize: 32,
             }),
-            clean()
+            clean(),
+            cssnext({
+                browsers: 'last 2 versions, iOS 8',
+                features: {
+                    calc: false,
+                }
+            })
         ]))
         .pipe(cleanCSS())
-        .pipe(sourcemaps.write('../css/'))
-        .pipe(gulp.dest('../css/'));
+        .pipe(gulp.dest('../css/'))
 });
 
 gulp.task('build:js', function() {
@@ -43,7 +60,7 @@ gulp.task('build:js', function() {
 
 gulp.task('build', gulp.series(['build:css', 'build:js']));
 
-gulp.task('watch:css', function() {
-    gulp.watch('assets/css/*.cs', ['build:css']);
-    gulp.watch('assets/js/*.js', ['build:js']);
-})
+gulp.task('watch', function () {
+    gulp.watch(['./assets/scss/*.scss'], gulp.series(['build:css']));
+    gulp.watch(['./assets/js/*.js'], gulp.series(['build:js']));
+});
