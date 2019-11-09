@@ -15,7 +15,7 @@ use App\Entity\User;
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_list")
+     * @Route("/", name="admin_user_list")
      */
     public function userList()
     {
@@ -28,7 +28,7 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="user_create", methods={"GET","POST"})
+     * @Route("/create", name="admin_user_create", methods={"GET","POST"})
      */
     public function userCreate(Request $request, UserPasswordEncoderInterface $encoder) 
     {

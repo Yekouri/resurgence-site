@@ -20,7 +20,6 @@ class SecurityController extends AbstractController
         $error = $utils->getLastAuthenticationError();
 
         $lastUsername = $utils->getLastUsername();
-
         return $this->render('Security/login.html.twig', [
             'error' => $error,
             'last_username' => $lastUsername
@@ -36,6 +35,8 @@ class SecurityController extends AbstractController
      * @Route("/user/edit", name="user_edit")
      */
     public function userUpdate(Request $request, UserPasswordEncoderInterface $encoder) {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $user = $this->getUser(); 
 
         if ($request->isMethod('POST'))

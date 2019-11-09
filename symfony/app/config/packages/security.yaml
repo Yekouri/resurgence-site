@@ -19,6 +19,13 @@ security:
                     login_path: login
                     check_path: login
                     provider: login_provider
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+                secure:   true
+                name:     REMEMBERME
+                remember_me_parameter: _remember_me
             logout:
                 path: /logout
                 target: /
@@ -33,5 +40,4 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
-         - { path: ^/user, roles: ROLE_USER }
 

@@ -23,7 +23,7 @@ gulp.task('build:css', function() {
             clean()
         ]))
         .pipe(cleanCSS())
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('../css/'))
         .pipe(gulp.dest('../css/'));
 });
 
@@ -37,7 +37,7 @@ gulp.task('build:js', function() {
         .pipe(plumber())
         .pipe(concat('main.js'))
         .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('../js/'))
         .pipe(gulp.dest('../js/'));
 });
 
