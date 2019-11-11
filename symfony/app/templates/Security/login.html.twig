@@ -2,16 +2,15 @@
 
 {% block title %}Login{% endblock %}
 
-
-
 {% block body %}
 {% include('navbar.html.twig') %}
-<div class="form-signin-wrapper">
-    <form class="form-signin" action="{{ path('login') }}" method="POST">
-        <h2 class="form-signin-heading text-center">Sign in</h2>
 
-        <input class="form-control" type="text" name="_username"  value ="{{ last_username }}" placeholder="Username" autofocus="" />
-        <input class="form-control" type="password" name="_password" placeholder="Password" />
+<div class="form-custom-wrapper">
+    <form class="form-custom" action="{{ path('login') }}" method="POST">
+        <h2 class="form-custom-heading text-center">Sign in</h2>
+
+        <input class="form-control" type="text" name="_username"  value ="{{ last_username }}" placeholder="Username" autofocus required />
+        <input class="form-control" type="password" name="_password" placeholder="Password" required />
 
         <input type="checkbox" id="remember_me"  name="_remember_me" />
         <label class="checkbox" for="remember_me">Remember Me</label>
