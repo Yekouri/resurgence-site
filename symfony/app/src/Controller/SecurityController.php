@@ -74,7 +74,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('Security/user_update.html.twig', [
+        return $this->render('Security/user-update.html.twig', [
             'user' => $user,
             'error' => ''
         ]);

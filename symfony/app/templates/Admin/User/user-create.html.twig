@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create user{% endblock %}
+
+{% block body %}
+{% include('navbar.html.twig') %}
+
+<div class="form-custom-wrapper">
+    {% if success_message %}
+        {% if error %}
+             <h4 class="text-center text-danger">{{ success_message }}</h4>
+        {% else %}
+             <h4 class="text-center text-success"> {{ success_message }}</h4>
+        {% endif %}
+    {% endif %}
+    <div class="text-center">
+        <a class="btn btn-primary" href="{{ path('admin_user_list') }}" role="button">Back to list</a>
+    </div>
+    <form class="form-custom" action="{{ path('admin_user_create') }}" method="POST">
+        <h2 class="form-custom-heading text-center">Create a new user</h2>
+
+        <input class="form-control" type="text" name="username" placeholder="Username">
+        <input class="form-control" type="password" name="password" placeholder="Password">
+        
+        <label for="roles">Role for site</label>
+        <select class="form-control"name="roles">
+                <option value="" selected="selected">User</option>
+                <option value="ROLE_ADMIN">Admin</option>
+        </select>
+        <button class="btn btn-lg btn-dark btn-block" type="submit">Create</button>
+    </form>
+</div>
+{% endblock %}
