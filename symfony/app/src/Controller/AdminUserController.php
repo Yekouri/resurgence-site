@@ -22,7 +22,7 @@ class AdminUserController extends AbstractController
         $users = $this->getDoctrine()->getRepository
         (User::class)->findAll();
 
-        return $this->render('Admin/User/user_list.html.twig', [
+        return $this->render('Admin/User/user-list.html.twig', [
             'users' => $users
         ]);
     }
@@ -64,7 +64,7 @@ class AdminUserController extends AbstractController
 
         }
 
-        return $this->render('Admin/User/user_create.html.twig', [
+        return $this->render('Admin/User/user-create.html.twig', [
             'success_message' => $message,
             'error' => $error
         ]);
