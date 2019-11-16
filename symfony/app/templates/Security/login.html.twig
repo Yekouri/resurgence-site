@@ -9,11 +9,16 @@
     <form class="form-custom" action="{{ path('login') }}" method="POST">
         <h2 class="form-custom-heading text-center">Sign in</h2>
 
-        <input class="form-control" type="text" name="_username"  value ="{{ last_username }}" placeholder="Username" autofocus required />
-        <input class="form-control" type="password" name="_password" placeholder="Password" required />
+        <input class="form-custom-control form-control" type="text" name="_username"  value ="{{ last_username }}" placeholder="Username" autofocus required />
+        <input class="form-custom-control form-control" type="password" name="_password" placeholder="Password" required />
 
-        <input type="checkbox" id="remember_me"  name="_remember_me" />
-        <label class="checkbox" for="remember_me">Remember Me</label>
+        <div class="form-group"> 
+            <div class="custom-control custom-checkbox">   
+                <input type="checkbox" class="custom-control-input" id="remember_me" name="_remember_me">
+                <label class="custom-control-label" for="remember_me">Remember Me</label>  
+            </div>
+        </div>
+
         <button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
 
         {% if error %}
