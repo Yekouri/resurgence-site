@@ -156,6 +156,11 @@ class ProfileController extends AbstractController
             'profile' => $profile,
             'attunements' => $attunements,
             'ranks' => $ranks,
+<<<<<<< HEAD
+=======
+            'races' => $this->getRaces(),
+            'classes' => $this->getClasses(),
+>>>>>>> c8e4a5219e1290024ac485f08959ad0c2a9aad3a
             'professions' => $this->getProfessions(),
             'specs' => $this->getSpecs()
         ]);

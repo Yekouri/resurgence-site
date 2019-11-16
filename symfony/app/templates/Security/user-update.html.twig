@@ -7,18 +7,18 @@
 
 <div class="form-custom-wrapper">
     <form class="form-custom" action="{{ path('user_edit') }}" method="POST">
-        <h2 class="form-custom-heading text-center">Change Password <br />
-            For user: {{ user.username }}
-        </h2>
+        <div class="user-update-form">
+            <h2 class="form-custom-heading text-center">Change Password <br />
+                For user: {{ user.username }}
+            </h2>
 
-        <input class="form-control" type="password" name="password"  placeholder="New password" autofocus required />
-        <input class="form-control" type="password" name="confirm_password" placeholder="Confirm password" required />
+            <input class="form-custom-control form-control" type="password" name="password"  placeholder="New password" autofocus required />
+            <input class="form-custom-control form-control" type="password" name="confirm_password" placeholder="Confirm password" required />
 
-        <button class="btn btn-lg btn-dark btn-block" type="submit">Submit</button>
+            <button class="btn btn-lg btn-dark btn-block user-update-form-submit" type="submit">Submit</button>
 
-        {% if error %}
-            <h4 class="text-center text-danger">{{ error }}</h4>
-        {% endif %}  
+            <h4 class="text-center text-danger user-update-form-error">{{ error }}</h4>
+        </div>
     </form>
 </div>
 {% endblock %}

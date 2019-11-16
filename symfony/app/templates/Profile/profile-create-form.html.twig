@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create profile{% endblock %}
+
+{% block body %}
+{% include('navbar.html.twig') %}
+
+<div class="form-custom-wrapper">
+    <form class="form-custom" action="{{ path('profile_create') }}" method="POST">
+        <h2 class="form-custom-heading text-center">Create profile</h2>
+        <p class="form-custom-heading text-center"><i>For a new WoW Classic character</i><p>
+        
+        <div class="profile-form-page-1">
+            <label class="" for="name">Character Name</label>        
+            <input class="form-custom-control form-control" type="text" name="name" required/>
+
+            <div class="form-group">
+                <label class="" for="rank">Rank</label>        
+                <select class="form-control" name="rank">
+                    {% for rank in ranks %}
+                        <option value="{{ rank.name }}">{{ rank.name }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="race">Race</label>      
+               <select class="form-control" name="race">
+                    {% for race in races %}
+                        <option value="{{ race }}">{{ race }} </option>
+                    {% endfor %}  
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="class">Class</label>        
+                <select class="form-control" name="class">
+                    {% for class in classes %}
+                        <option value="{{ class }}">{{ class }} </option>
+                    {% endfor %}  
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="spec">Spec</label>        
+                <select class="form-control" name="spec">
+                    {% for spec in specs %}
+                        <option value="{{ spec }}">{{ spec }} </option>
+                    {% endfor %}  
+                </select>
+            </div>
+
+            <label class="" for="name">Join date</label>        
+            <input class="form-custom-control form-control" type="date" name="join_date" value="{{ "now"|date("Y-m-d", "Europe/Paris") }}"/>
+
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col">
+                </div>
+                <div class="col">
+                    <button class="btn btn-lg btn-dark profile-form-create-next-1" type="button">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-form-page-2">
+                <label class="">Attunements</label>    
+                <div class="form-group">    
+                {% for attunement in attunements %}
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                        <input type="checkbox" class="custom-control-input" id="{{ attunement.name }}" name="attunement[]">
+                        <label class="custom-control-label" for="{{ attunement.name }}">{{ attunement.name }}</label>
+                    </div>
+                {% endfor %}
+            </div> 
+            <div class="form-group">
+                <label class="" for="profession_A">Profession A</label>        
+                <select class="form-control" name="profession_A">
+                    {% for profession in professions %}
+                        <option value="{{ profession }}">{{ profession }} </option>
+                    {% endfor %}  
+                </select>
+            </div> 
+
+            <div class="form-group">
+                <label class="" for="profession_B">Profession B</label>        
+                <select class="form-control" name="profession_B">
+                    {% for profession in professions %}
+                        <option value="{{ profession }}">{{ profession }} </option>
+                    {% endfor %}  
+                </select>
+            </div> 
+
+            <div class="form-group"> 
+                <div class="custom-control custom-checkbox">   
+                    <input type="checkbox" class="custom-control-input" id="pvp" name="pvp[]">
+                    <label class="custom-control-label" for="pvp">PVP</label>  
+                </div>
+                <label class="" for="current_pvp_rank">Current PVP rank</label>        
+                <input class="form-custom-control form-control" type="number" max="14" name="current_pvp_rank"/>
+                <label class="" for="current_pvp_rank">Goal PVP rank</label>        
+                <input class="form-custom-control form-control" type="number" max="14" name="goal_pvp_rank"/>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-lg btn-dark profile-form-create-back-2" type="button">Back</button>
+                </div>
+                <div class="col">
+                </div>
+                <div class="col">
+                    <button class="btn btn-lg btn-dark" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

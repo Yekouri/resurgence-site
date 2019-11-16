@@ -45,7 +45,7 @@ class SecurityController extends AbstractController
 
             if (strcmp($postdata['password'], $postdata['confirm_password']) != 0) 
             {
-                return $this->render('Security/user_update.html.twig', [
+                return $this->render('Security/user-update.html.twig', [
                     'user' => $user,
                     'error' => 'Password does not match'
                 ]);            
