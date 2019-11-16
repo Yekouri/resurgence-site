@@ -71,6 +71,7 @@ class ProfileController extends AbstractController
                 die;
             }
 
+            return $this->redirectToRoute('profile_my');
         }
 
         return $this->render('Profile/profile-create-form.html.twig', [
@@ -150,6 +151,8 @@ class ProfileController extends AbstractController
                 print_r($e->getMessage());
                 die;
             }
+
+            return $this->redirectToRoute('profile_my');
         }
 
         return $this->render('Profile/profile-edit-form.html.twig', [
