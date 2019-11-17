@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attunement;
 use App\Entity\Rank;
 use App\Entity\Profile;
@@ -16,7 +17,7 @@ use App\Entity\Profile;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/create", name="profile_create")
+     * @Route("/create", name="profile_create", methods={"GET","POST"})
      */
     public function createProfile(Request $request)
     {
@@ -85,7 +86,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/", name="profile_my")
+     * @Route("/", name="profile_my", methods={"GET"})
      */
     public function myProfile() {
         $repository = $this->getDoctrine()->getRepository(Profile::class);
@@ -97,7 +98,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="profile_edit")
+     * @Route("/edit", name="profile_edit", methods={"GET","POST"})
      */
     public function editProfile(Request $request) {
         $id = $request->query->get('id');
@@ -162,6 +163,23 @@ class ProfileController extends AbstractController
             'professions' => $this->getProfessions(),
             'specs' => $this->getSpecs()
         ]);
+    }
+
+    /**
+     * @Route("/delete", name="profile_delete", methods={"DELETE"})
+     */
+    public function deleteProfile(Request $request) {
+        $id = $request->query->get('id');
+        
+        // Only find if profile id is linked to the user id
+        $repository = $this->getDoctrine()->getRepository(Profile::class);
+        $profile = $repository->findProfile($id, $this->getUser()->getId());
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($profile);
+        $entityManager->flush();
+
+        return new Response();
     }
 
     private function getRaces() {
