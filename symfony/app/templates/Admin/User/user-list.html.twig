@@ -28,6 +28,9 @@
                             {{ role }},
                         {% endfor %}
                     </td>
+                    <td data-id="{{ user.id }}">
+                        <button class="delete-user-button btn btn-primary" type="button">Delete User</button>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

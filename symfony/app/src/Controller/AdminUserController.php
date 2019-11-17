@@ -69,4 +69,20 @@ class AdminUserController extends AbstractController
             'error' => $error
         ]);
     }
+
+    /**
+     * @Route("/delete", name="admin_user_delete", methods={"DELETE"})
+     */
+    public function deleteUser(Request $request) {
+        $id = $request->query->get('id');
+        
+        $user = $this->getDoctrine()->getRepository
+        (User::class)->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return new Response();
+    }
 }
