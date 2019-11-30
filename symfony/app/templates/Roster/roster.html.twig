@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Roster{% endblock %}
+
+{% block body %}
+{% include('navbar.html.twig') %}
+  <button class="btn btn-dark my-2 mx-2" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+    Filter
+  </button>
+<div class="collapse" id="collapseFilter">
+    <form class="form-inline mx-2" action="{{ path('roster') }}" method="POST">
+        <div class="form-group mr-2">
+            <label class="mr-2" for="rank">Rank</label>      
+            <select class="form-control my-2 mr-sm-2-control" name="rank">
+                <option value="" selected> </option>
+                {% for rank in ranks %}
+                    <option value="{{ rank.name }}" {% if rank.name == selected.rank %} selected="selected" {% endif %}>{{ rank.name }} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group mr-2">
+            <label class="mr-2" for="class">Class</label>      
+            <select class="form-control my-2 mr-sm-2-control" name="class">
+                <option value="" selected> </option>
+                {% for class in classes %}
+                    <option value="{{ class }}" {% if class == selected.class %} selected="selected" {% endif %}>{{ class }} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group mr-4">
+            <label class="mr-2" for="spec">Spec</label>      
+            <select class="form-control my-2 mr-sm-2-control" name="spec">
+                <option value="" selected> </option>
+                {% for spec in specs %}
+                    <option value="{{ spec }}" {% if spec == selected.spec %} selected="selected" {% endif %}>{{ spec }} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group">
+            <button type="submit" class="btn btn-primary my-2">Submit</button>
+        </div>
+    </form>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Race</th>
+                <th scope="col">Class</th>
+                <th scope="col">Spec</th>
+                <th scope="col">Attunements</th>
+                <th scope="col">Profession A</th>
+                <th scope="col">Profession B</th>
+                <th scope="col">PVP</th>
+                <th scope="col">Current PVP rank</th>
+                <th scope="col">Goal PVP rank</th>
+                <th scope="col">Join Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+                <tr>
+                    <th scope="row">{{ profile.name }}</th>
+                    <td align="center">{{ profile.rank.name }}</td>
+                    <td align="center">{{ profile.race }}</td>
+                    <td align="center">{{ profile.class }}</td>
+                    <td align="center">{{ profile.spec }}</td>
+                    <td align="center">{% for attunement in profile.attunements %} {{ attunement.name }}{% if not loop.last %}, {% endif %} {% endfor %}</td>
+                    <td align="center">{{ profile.professionA }}</td>
+                    <td align="center">{{ profile.professionB }}</td>
+                    <td align="center">
+                        <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" {% if profile.pvp %} checked {% endif %} disabled>
+                        <label class="custom-control-label" for="customCheck1"></label>
+                     </td>
+                    <td align="center">{{ profile.currentPvpRank }}</td>
+                    <td align="center">{{ profile.goalPvpRank }}</td>
+                    <td align="center">{{ profile.joinDate|date("Y-m-d", "Europe/Paris") }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

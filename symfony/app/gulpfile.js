@@ -9,6 +9,7 @@ const cleanCSS = require('gulp-clean-css');
 const url = require('postcss-url');
 const cssnext = require('postcss-cssnext');
 const sass = require('gulp-sass');
+const imagemin = require('gulp-imagemin');
 const print = require('gulp-print').default;
 
 gulp.task('my-sass-task', function () {
@@ -58,9 +59,19 @@ gulp.task('build:js', function() {
         .pipe(gulp.dest('../js/'));
 });
 
-gulp.task('build', gulp.series(['build:css', 'build:js']));
+gulp.task('build:img', function() {
+    return gulp.src([
+        'assets/img/*.jpg',
+        'assets/img/*.png',
+        ])
+        .pipe(imagemin())
+        .pipe(gulp.dest('../img/'));
+});
+
+gulp.task('build', gulp.series(['build:css', 'build:js', 'build:img']));
 
 gulp.task('watch', function () {
     gulp.watch(['./assets/scss/*.scss'], gulp.series(['build:css']));
     gulp.watch(['./assets/js/*.js'], gulp.series(['build:js']));
+    gulp.watch(['./assets/img/*'], gulp.series(['build:img']));
 });

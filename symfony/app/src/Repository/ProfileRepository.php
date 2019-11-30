@@ -42,6 +42,62 @@ class ProfileRepository extends ServiceEntityRepository
         return !empty($result) ? $result[0] : [];
     }
 
+    public function findAllProfilesFilter($rank = null, $class = null, $spec = null) {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->select('p');
+      
+        if($rank) {
+            if ($class) {
+                if($spec) {
+                    $qb->where($qb->expr()->andX(
+                        $qb->expr()->eq('p.rank', $rank->getId()),
+                        $qb->expr()->like('p.class', $qb->expr()->literal('%' . $class .'%')),
+                        $qb->expr()->like('p.spec', $qb->expr()->literal('%' . $spec .'%'))
+                    ));
+                }
+                else {
+                    $qb->where($qb->expr()->andX(
+                        $qb->expr()->eq('p.rank', $rank->getId()),
+                        $qb->expr()->like('p.class', $qb->expr()->literal('%' . $class .'%'))
+                    ));
+                }
+            }
+
+            else if($spec) {
+                $qb->where($qb->expr()->andX(
+                    $qb->expr()->eq('p.rank', $rank->getId()),
+                    $qb->expr()->like('p.spec', $qb->expr()->literal('%' . $spec .'%'))
+                )); 
+            }
+            else {
+                $qb->where($qb->expr()->eq('p.rank', $rank->getId())); 
+            }
+        }
+
+        else if($class) {
+            if ($spec) {
+                $qb->where($qb->expr()->andX(
+                    $qb->expr()->like('p.class', $qb->expr()->literal('%' . $class .'%')),
+                    $qb->expr()->like('p.spec', $qb->expr()->literal('%' . $spec .'%')) 
+                ));
+            }
+            else {
+                $qb->where($qb->expr()->like('p.class', $qb->expr()->literal('%' . $class .'%'))); 
+            
+            }
+        }   
+        else if($spec) {
+            $qb->where($qb->expr()->like('p.spec', $qb->expr()->literal('%' . $spec .'%'))); 
+        }
+      
+        $qb->addOrderBy('p.class', 'ASC');
+        $qb->addOrderBy('p.rank', 'ASC');
+    
+        $result = $qb->getQuery()->getResult();
+        return !empty($result) ? $result : [];
+    }
+
     // /**
     //  * @return Profile[] Returns an array of Profile objects
     //  */
