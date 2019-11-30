@@ -16,7 +16,11 @@ class RosterController extends AbstractController
      */
     public function index(ProfileInfoGenerator $info, Request $request)
     {
-        $selected = [];
+        $selected = [
+            'class' => '',
+            'rank' => '',
+            'spec' => '',
+        ];
         $ranks = $this->getDoctrine()->getRepository
         (Rank::class)->findAll();
 
@@ -50,7 +54,6 @@ class RosterController extends AbstractController
             $repository = $this->getDoctrine()->getRepository(Profile::class);
             $profiles = $repository->findAllProfilesFilter();
         }
-
 
         return $this->render('Roster/roster.html.twig', [
             'ranks' => $ranks,

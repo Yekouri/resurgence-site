@@ -16,6 +16,15 @@
                         {% endif %}
                     </a>
                 </li>
+                {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'roster' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('roster') }}">Roster
+                            {% if app.request.attributes.get('_route') == 'roster' %}
+                                <span class="sr-only">(current)</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item dropdown {% if app.request.attributes.get('_route') starts with 'admin' %}active{% endif %}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
