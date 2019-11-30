@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attunement;
 use App\Entity\Rank;
 use App\Entity\Profile;
+use App\Service\ProfileInfoGenerator;
 
 
 /**
@@ -19,7 +20,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/create", name="profile_create", methods={"GET","POST"})
      */
-    public function createProfile(Request $request)
+    public function createProfile(ProfileInfoGenerator $info, Request $request)
     {
         $attunements = $this->getDoctrine()->getRepository
         (Attunement::class)->findAll();
@@ -78,10 +79,10 @@ class ProfileController extends AbstractController
         return $this->render('Profile/profile-create-form.html.twig', [
             'attunements' => $attunements,
             'ranks' => $ranks,
-            'races' => $this->getRaces(),
-            'classes' => $this->getClasses(),
-            'professions' => $this->getProfessions(),
-            'specs' => $this->getSpecs()
+            'races' => $info->getRaces(),
+            'classes' => $info->getClasses(),
+            'professions' => $info->getProfessions(),
+            'specs' => $info->getSpecs()
         ]);
     }
 
@@ -100,7 +101,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/edit", name="profile_edit", methods={"GET","POST"})
      */
-    public function editProfile(Request $request) {
+    public function editProfile(ProfileInfoGenerator $info, Request $request) {
         $id = $request->query->get('id');
 
         $attunements = $this->getDoctrine()->getRepository
@@ -160,8 +161,8 @@ class ProfileController extends AbstractController
             'profile' => $profile,
             'attunements' => $attunements,
             'ranks' => $ranks,
-            'professions' => $this->getProfessions(),
-            'specs' => $this->getSpecs()
+            'professions' => $info->getProfessions(),
+            'specs' => $info->getSpecs()
         ]);
     }
 
@@ -180,52 +181,5 @@ class ProfileController extends AbstractController
         $entityManager->flush();
 
         return new Response();
-    }
-
-    private function getRaces() {
-        return [
-            'Human',
-            'Dwarf',
-            'Night Elf',
-            'Gnome'
-        ];
-    }
-
-    private function getClasses() {
-        return [
-            'Druid',
-            'Hunter',
-            'Mage',
-            'Paladin',
-            'Priest',
-            'Rogue',
-            'Warlock',
-            'Warrior',
-        ];
-    }
-
-    private function getSpecs() {
-        return [
-            'Dps',
-            'Tank',
-            'Healer',
-        ];
-    }
-
-    private function getProfessions() {
-        return [
-            '',
-            'Alchemy',
-            'Blacksmithing (Armour)',
-            'Blacksmithing (Weapon)',
-            'Enchanting',
-            'Engineering (Gnomish)',
-            'Engineering (Goblin)',
-            'Herbalism',
-            'Leatherworking',
-            'Mining',
-            'Skinning',
-            'Tailoring',
-        ];
     }
 }
